@@ -1,14 +1,9 @@
-FROM debian
+FROM golang:rc-stretch
 
 RUN apt-get update -y -qq
 
-RUN apt-get install -y -qq --no-install-recommends \
-    golang graphviz
+RUN apt-get install -y -qq --no-install-recommends graphviz
 
-ENV APP callviz
-
-RUN mkdir -p /$APP
-
-RUN git clone https://github.com/xenogenesi/vbox-buildroot-vagrant.git /$APP make
-
-WORKDIR /$APP
+RUN go get -u github.com/TrueFurby/go-callvis \
+    && cd $GOPATH/src/github.com/TrueFurby/go-callvis \
+    && make
