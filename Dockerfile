@@ -5,6 +5,10 @@ RUN apt-get update -y -qq
 RUN apt-get install -y -qq --no-install-recommends \
     golang graphviz
 
-RUN go get -u github.com/TrueFurby/go-callvis \
-    && cd $GOPATH/src/github.com/TrueFurby/go-callvis \
-    && make
+ENV APP callviz
+
+RUN mkdir -p /$APP
+
+RUN git clone https://github.com/xenogenesi/vbox-buildroot-vagrant.git /$APP make
+
+WORKDIR /$APP
